@@ -1,4 +1,4 @@
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?');
+let numberOfFilms = '';
 
 const personalMovieDB = {
 	count: numberOfFilms,
@@ -7,6 +7,18 @@ const personalMovieDB = {
 	genres: [],
 	privat: false,
 };
+
+function howMoviesShow() {
+	numberOfFilms = +prompt('Сколько фильмов вы посмотрели?');
+
+	while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+		numberOfFilms = +prompt('Сколько фильмов вы посмотрели?');
+	}
+}
+
+function showMyDB() {
+	!personalMovieDB.privat ? console.log(personalMovieDB) : '';
+}
 ///////////////////////////////////////////////////////////////////// C помощью if
 
 // if (personalMovieDB.count < 10) {
@@ -21,27 +33,44 @@ const personalMovieDB = {
 
 ///////////////////////////////////////////////////////////////// C помощью ?
 
-personalMovieDB.count < 10
-	? console.log('Вы посмотрели не так много фильмов')
-	: personalMovieDB.count > 10 && personalMovieDB.count < 30
-	? console.log('Ну это нормальное количество')
-	: personalMovieDB.count > 30
-	? console.log('Вы киноман')
-	: console.log('errors');
+function detectPersonalLevel() {
+	personalMovieDB.count < 10
+		? console.log('Вы посмотрели не так много фильмов')
+		: personalMovieDB.count > 10 && personalMovieDB.count < 30
+		? console.log('Ну это нормальное количество')
+		: personalMovieDB.count > 30
+		? console.log('Вы киноман')
+		: console.log('errors');
+}
 
 ////////////////////////////////////////////////////////////////  C помощью for
 
-// for (let i = 0; i < 2; i++) {
-// 	let a = prompt('Какой последний фильм вы посмотрели'),
-// 		b = prompt('На сколько оцените его по 10 бальной шкале?');
-// 	if (a != null && a != '' && b != null && b != '' && a.length < 50) {
-// 		personalMovieDB.movies[a] = b;
-// 		console.log('done');
-// 	} else {
-// 		console.log('error');
-// 		i--;
-// 	}
-// }
+function filmScore() {
+	for (let i = 0; i < 2; i++) {
+		let a = prompt('Какой последний фильм вы посмотрели'),
+			b = prompt('На сколько оцените его по 10 бальной шкале?');
+		if (a != null && a != '' && b != null && b != '' && a.length < 50) {
+			personalMovieDB.movies[a] = b;
+			console.log('done');
+		} else {
+			console.log('error');
+			i--;
+		}
+	}
+}
+
+function writeYourGenres() {
+	for (let i = 1; i < 4; i++) {
+		let a = prompt(`Ваш любимый жанр под номером ${i}`);
+
+		if (a != null && a != '' && a.length < 50) {
+			personalMovieDB.genres.push(a);
+		} else {
+			console.log('error');
+			i--;
+		}
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////// C помощью while
 
@@ -62,19 +91,23 @@ personalMovieDB.count < 10
 
 ////////////////////////////////////////////////////////////////////////////// C помощью do while
 
-let i = 0;
+// let i = 0;
 
-do {
-	let a = prompt('Какой последний фильм вы посмотрели'),
-		b = prompt('На сколько оцените его по 10 бальной шкале?');
-	if (a != null && a != '' && b != null && b != '' && a.length < 50) {
-		personalMovieDB.movies[a] = b;
-		console.log('done');
-		i++;
-	} else {
-		console.log('error');
-		i--;
-	}
-} while (i <= 1);
+// do {
+// 	let a = prompt('Какой последний фильм вы посмотрели'),
+// 		b = prompt('На сколько оцените его по 10 бальной шкале?');
+// 	if (a != null && a != '' && b != null && b != '' && a.length < 50) {
+// 		personalMovieDB.movies[a] = b;
+// 		console.log('done');
+// 		i++;
+// 	} else {
+// 		console.log('error');
+// 		i--;
+// 	}
+// } while (i <= 1);
 
-console.log(personalMovieDB);
+howMoviesShow();
+detectPersonalLevel();
+filmScore();
+writeYourGenres();
+showMyDB();
